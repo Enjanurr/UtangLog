@@ -9,12 +9,12 @@ import android.widget.Toast
 import com.example.utanglog.R
 import com.example.utanglog.screens.addDebt.AddDebtActivity
 import com.example.utanglog.data.People
-import com.example.utanglog.helper.CustomListViewAdapter
+import com.example.utanglog.helper.DebtListViewAdapter
 
 class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
 
     private lateinit var presenter: DisplayDebtPresenter
-    private lateinit var adapter: CustomListViewAdapter
+    private lateinit var adapter: DebtListViewAdapter
     private lateinit var listView: ListView
     private val ADD_DEBT_REQUEST = 1
 
@@ -27,12 +27,12 @@ class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
         listView = findViewById<ListView>(R.id.listView)
         val addNewDebtButton = findViewById<Button>(R.id.addNewDebtButton)
 
-        adapter = CustomListViewAdapter(
+        adapter = DebtListViewAdapter(
             this,
             mutableListOf(),
-            onImageClick = { people -> presenter.onImageClick(people) },
+           // onImageClick = { people -> presenter.onImageClick(people) },
             onItemClick = { people -> presenter.onItemClick(people) },
-            onDeleteClick = { people, position -> presenter.onDeleteClick(people, position) }
+          //  onDeleteClick = { people, position -> presenter.onDeleteClick(people, position) }
         )
         listView.adapter = adapter
 

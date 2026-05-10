@@ -1,7 +1,5 @@
 package com.example.utanglog.screens.addDebt
 
-import com.example.utanglog.R
-
 class AddDebtPresenter(
     private val view: AddDebtContract.View,
     private val model: AddDebtModel
@@ -9,13 +7,16 @@ class AddDebtPresenter(
 
     override fun onSubmitClick() {
         val name = view.getName()
-        val amount = view.getAmount()  // Now Double
+        val amount = view.getAmount()
+        val status = view.getStatus()
+        val dueDate = view.getDueDate()
+        val address = view.getAddress()
 
-        if (model.validateInput(name, amount)) {
+        if (model.validateInput(name, amount, status, dueDate, address)) {
             view.showSuccess(name, amount)
-            view.closeScreen(name, amount)
+            view.closeScreen(name, amount, status, dueDate, address)
         } else {
-            view.showError("Please fill both name and amount")
+            view.showError("Please fill all fields correctly")
         }
     }
 }

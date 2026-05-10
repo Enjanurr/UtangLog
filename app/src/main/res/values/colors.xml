@@ -6,4 +6,8 @@
     <color name="gray_light">#CCCCCC</color>
     <color name="green_primary">#5EDE99</color>
     <color name="green_dark">#152C07</color>
+    <color name="status_paid">#166534</color>
+    <color name="status_overdue">#991B1B</color>
+    <color name="status_pending">#92400E</color>
+    <color name="background_screen">#F8F8F8</color>
 </resources>

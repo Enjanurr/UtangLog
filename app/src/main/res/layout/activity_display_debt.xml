@@ -1,21 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background_screen"
+    android:padding="20dp">
 
+    <!-- Header with Back Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back_arrow"
+            android:contentDescription="Back"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="@color/green_dark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Title centered -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Debt Tracker"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/green_dark"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- List Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Debtors List"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/green_dark"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- ListView -->
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:scrollbars="vertical" />
 
-    <Button
+    <!-- Add Debt Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/addNewDebtButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add New Debt"
-        android:padding="16dp"
-        android:layout_margin="16dp" />
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:text="+ Add Debtor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:cornerRadius="12dp"
+        app:backgroundTint="@color/green_primary" />
 
 </LinearLayout>

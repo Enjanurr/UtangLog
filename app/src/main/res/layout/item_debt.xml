@@ -7,48 +7,74 @@
     android:background="?attr/selectableItemBackground"
     android:layout_marginBottom="8dp">
 
-    <!-- Circular Profile Picture -->
+    <!-- Profile Image -->
     <FrameLayout
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/circle_background" />
 
-    <!-- Debtor Info -->
+    <!-- Debtor Info (First Name + Last Name) -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <!-- First Name -->
         <TextView
-            android:id="@+id/debtor_name"
+            android:id="@+id/debtor_firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="John Doe"
+            android:text="John"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
 
+        <!-- Last Name -->
         <TextView
-            android:id="@+id/debt_date"
+            android:id="@+id/debtor_lastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Due: Dec 31, 2024"
+            android:text="Doe"
             android:textSize="12sp"
             android:textColor="@color/gray_dark"
             android:layout_marginTop="2dp" />
 
     </LinearLayout>
 
-    <!-- Amount Owed -->
-    <TextView
-        android:id="@+id/debt_amount"
+    <!-- Right Side: Amount + Status -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="₱5,000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/green_dark" />
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <!-- Total Debt Amount -->
+        <TextView
+            android:id="@+id/debt_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱5,000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/green_dark" />
+
+        <!-- Status Badge (Rounded Rectangle) -->
+        <TextView
+            android:id="@+id/status_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="PENDING"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_status_pending" />
+
+    </LinearLayout>
 
 </LinearLayout>
