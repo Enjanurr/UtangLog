@@ -12,22 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Utanglog"
         tools:targetApi="31">
-
+        <activity
+            android:name=".screens.debtdetail.DebtDetailActivity"
+            android:exported="false" />
         <!-- DisplayDebtActivity should be the MAIN/LAUNCHER -->
         <activity
             android:name=".screens.displayDebt.DisplayDebtActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- AddDebtActivity should NOT be launcher -->
+        </activity> <!-- AddDebtActivity should NOT be launcher -->
         <activity
             android:name=".screens.addDebt.AddDebtActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>
