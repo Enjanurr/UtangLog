@@ -20,14 +20,37 @@ class DisplayDebtPresenter(
         view.showDebtAdded()
     }
 
-    override fun addDebtFromIntent(name: String, amount: Double, status: String, dueDate: String, address: String) {
-        if (name.isNotEmpty() && amount > 0.0) {
-            val newDebt = People(name, amount, dueDate, status, address)
-            addDebt(newDebt)
+    override fun updateDebt(updatedPeople: People, position: Int) {
+        model.updateDebt(updatedPeople, position)
+        view.showDebtList(model.getDebts())
+        view.updateSummary(model.getTotalAmount(), model.getDebtCount())
+        view.showMessage("Debt updated successfully!")
+    }
+
+    override fun deleteDebt(position: Int) {
+        val deletedPeople = model.deleteDebt(position)
+        if (deletedPeople != null) {
+            view.showDebtList(model.getDebts())
+            view.updateSummary(model.getTotalAmount(), model.getDebtCount())
+            view.showMessage("Deleted ${deletedPeople.name}'s debt")
         }
     }
 
     override fun onItemClick(people: People) {
         view.showItemClicked(people)
+    }
+
+    override fun onActivityResult(name: String, amount: Double, status: String, dueDate: String, address: String, photoRes: Int) {
+        if (name.isNotEmpty() && amount > 0.0) {
+            val newDebt = People(
+                name = name,
+                amount = amount,
+                dueDate = dueDate,
+                status = status,
+                address = address,
+                photoRes = photoRes
+            )
+            addDebt(newDebt)
+        }
     }
 }

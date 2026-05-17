@@ -1,6 +1,7 @@
 package com.example.utanglog.data
 
 import com.example.utanglog.R
+import java.io.Serializable
 
 data class People(
     var name: String = "",
@@ -8,5 +9,5 @@ data class People(
     var dueDate: String = "",
     var status: String = "Pending",
     var address: String = "",
-    var photoRes: Int = R.drawable.ic_person_placeholder
-)
+    var photoRes: Int = R.drawable.profile  // Default profile image
+) : Serializable

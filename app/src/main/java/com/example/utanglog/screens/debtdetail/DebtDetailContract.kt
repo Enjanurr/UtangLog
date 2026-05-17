@@ -7,6 +7,7 @@ interface DebtDetailContract {
         fun showDebtDetails(people: People)
         fun showDeleteConfirmation()
         fun showEditScreen(people: People)
+        fun onUpdateSuccess(updatedPeople: People, position: Int)
         fun closeScreen()
         fun showMessage(message: String)
     }
@@ -15,5 +16,6 @@ interface DebtDetailContract {
         fun loadDebtDetails(people: People)
         fun onDeleteClick(people: People, position: Int)
         fun onEditClick(people: People)
+        fun onUpdateClick(updatedPeople: People, position: Int)
     }
 }

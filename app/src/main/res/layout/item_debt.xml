@@ -5,17 +5,21 @@
     android:orientation="horizontal"
     android:padding="12dp"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_debt_item">
+    android:background="@drawable/bg_debt_item"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
-    <!-- Avatar/Profile Image -->
+    <!-- Debtor Photo -->
     <ImageView
-        android:id="@+id/iv_avatar"
+        android:id="@+id/imageviewAvatar"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="12dp"
-        android:src="@drawable/ic_person_placeholder" />
+        android:src="@drawable/ic_person_placeholder"
+        android:background="@drawable/circle_background" />
 
-    <!-- Debtor Info -->
+    <!-- Debtor Info (Left Side) -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -23,7 +27,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/textviewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="John Doe"
@@ -32,7 +36,7 @@
             android:textColor="@color/green_dark" />
 
         <TextView
-            android:id="@+id/tv_due_date"
+            android:id="@+id/textviewDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Due: Dec 31, 2024"
@@ -40,17 +44,50 @@
             android:textColor="@color/gray_medium"
             android:layout_marginTop="2dp" />
 
+        <TextView
+            android:id="@+id/textviewAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123 Main St"
+            android:textSize="11sp"
+            android:textColor="@color/gray_medium"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
     </LinearLayout>
 
-    <!-- Amount -->
-    <TextView
-        android:id="@+id/tv_amount"
+    <!-- Right Side: Amount + Status -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="₱0.00"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/green_primary"
-        android:layout_gravity="center_vertical" />
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <!-- Amount -->
+        <TextView
+            android:id="@+id/textviewAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱0.00"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/green_primary" />
+
+        <!-- Status Badge (Below Amount) -->
+        <TextView
+            android:id="@+id/textviewStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="Pending"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>

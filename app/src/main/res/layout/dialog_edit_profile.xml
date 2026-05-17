@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Full Name"
+        android:textSize="12sp"
+        android:textColor="@color/green_dark"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/edittextName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Enter full name"
+        android:background="@drawable/edit_text_background"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="12sp"
+        android:textColor="@color/green_dark"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/edittextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Enter email"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/edit_text_background"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone"
+        android:textSize="12sp"
+        android:textColor="@color/green_dark"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/edittextPhone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Enter phone number"
+        android:inputType="phone"
+        android:background="@drawable/edit_text_background"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+</LinearLayout>

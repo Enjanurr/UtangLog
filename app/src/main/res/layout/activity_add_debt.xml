@@ -1,180 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_screen"
-    android:fillViewport="true">
+    android:background="@color/background_screen">
 
-    <LinearLayout
+    <!-- ScrollView for content (takes remaining space above bottom nav) -->
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
 
-        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="20dp">
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:paddingBottom="16dp">
 
-            <ImageView
-                android:id="@+id/back_arrow"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_back_arrow"
-                android:contentDescription="Back" />
-
-            <TextView
-                android:layout_width="0dp"
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Add Debt"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add Debt"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_dark"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp">
+
+                <!-- Profile Image - ID matches Activity -->
+                <ImageView
+                    android:id="@+id/imageviewDebtorAvatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_person_placeholder"
+                    android:background="@drawable/circle_background"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <!-- Camera Icon Overlay (Bottom Right) -->
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/circle_camera_background">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_camera"
+                        android:contentDescription="Change Photo" />
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+            <!-- Name Field -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="12sp"
                 android:textColor="@color/green_dark"
-                android:gravity="center" />
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/edittextName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Enter name"
+                android:textColorHint="@color/gray_hint"
+                android:textColor="@color/black"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="@drawable/edit_text_background"
+                android:inputType="text"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Amount Field -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:textSize="12sp"
+                android:textColor="@color/green_dark"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/edittextAmount"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Enter amount"
+                android:textColorHint="@color/gray_hint"
+                android:textColor="@color/black"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="@drawable/edit_text_background"
+                android:inputType="numberDecimal"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Status Dropdown -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textSize="12sp"
+                android:textColor="@color/green_dark"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spinnerStatus"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Due Date Field -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Due Date"
+                android:textSize="12sp"
+                android:textColor="@color/green_dark"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/edittextDueDate"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="DD/MM/YYYY"
+                android:textColorHint="@color/gray_hint"
+                android:textColor="@color/black"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="@drawable/edit_text_background"
+                android:inputType="date"
+                android:focusable="false"
+                android:clickable="true"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Address Field -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textSize="12sp"
+                android:textColor="@color/green_dark"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/edittextAddress"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Enter address"
+                android:textColorHint="@color/gray_hint"
+                android:textColor="@color/black"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="@drawable/edit_text_background"
+                android:inputType="text"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="8dp"
+                android:text="Add Debt"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/button_background"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:backgroundTint="@null" />
 
         </LinearLayout>
 
-        <!-- Name Field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:textSize="13sp"
-            android:textColor="@color/green_dark"
-            android:layout_marginBottom="6dp" />
+    </ScrollView>
 
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="44dp"
-            android:hint="Enter name"
-            android:textColorHint="@color/gray_hint"
-            android:textColor="@color/black"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@drawable/edit_text_background"
-            android:inputType="text"
-            android:layout_marginBottom="16dp" />
+    <!-- Bottom Navigation - Sticks to bottom -->
+    <include
+        android:id="@+id/bottomNavigation"
+        layout="@layout/nav_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- Amount Field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Amount"
-            android:textSize="13sp"
-            android:textColor="@color/green_dark"
-            android:layout_marginBottom="6dp" />
-
-        <EditText
-            android:id="@+id/et_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="44dp"
-            android:hint="Enter amount"
-            android:textColorHint="@color/gray_hint"
-            android:textColor="@color/black"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@drawable/edit_text_background"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Status Dropdown -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status"
-            android:textSize="13sp"
-            android:textColor="@color/green_dark"
-            android:layout_marginBottom="6dp" />
-
-        <Spinner
-            android:id="@+id/spinner_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="44dp"
-            android:background="@drawable/edit_text_background"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Due Date Field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Due Date"
-            android:textSize="13sp"
-            android:textColor="@color/green_dark"
-            android:layout_marginBottom="6dp" />
-
-        <EditText
-            android:id="@+id/et_due_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="44dp"
-            android:hint="DD/MM/YYYY"
-            android:textColorHint="@color/gray_hint"
-            android:textColor="@color/black"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@drawable/edit_text_background"
-            android:inputType="date"
-            android:focusable="false"
-            android:clickable="true"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Address Field -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:textSize="13sp"
-            android:textColor="@color/green_dark"
-            android:layout_marginBottom="6dp" />
-
-        <EditText
-            android:id="@+id/et_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="44dp"
-            android:hint="Enter address"
-            android:textColorHint="@color/gray_hint"
-            android:textColor="@color/black"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@drawable/edit_text_background"
-            android:inputType="text"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Submit Button -->
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Add Debt"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:background="@drawable/button_background"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            app:backgroundTint="@null" />
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

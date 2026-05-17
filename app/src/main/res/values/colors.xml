@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Existing colors -->
+    <!-- Primary Colors -->
     <color name="green_primary">#5EDE99</color>
     <color name="green_dark">#152C07</color>
+
+    <!-- Neutrals -->
     <color name="white">#FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
     <color name="black">#1A1A1A</color>
     <color name="gray_light">#F5F5F5</color>
     <color name="gray_medium">#888888</color>
     <color name="gray_hint">#CCCCCC</color>
-    <color name="background_screen">#F8F8F8</color>
+    <color name="background_screen">#FBFBFB</color>
 
-    <!-- Status Badge Colors (Add these) -->
-    <color name="status_paid_bg">#DCFCE7</color>     <!-- Light green background -->
-    <color name="status_paid">#166534</color>        <!-- Dark green text -->
-
-    <color name="status_overdue_bg">#FEE2E2</color>  <!-- Light red background -->
-    <color name="status_overdue">#991B1B</color>     <!-- Dark red text -->
-
-    <color name="status_pending_bg">#FEF3C7</color>  <!-- Light yellow background -->
-    <color name="status_pending">#92400E</color>     <!-- Dark yellow/orange text -->
+    <!-- Status Colors -->
+    <color name="status_pending_bg">#FEF3C7</color>
+    <color name="status_pending_text">#92400E</color>
+    <color name="status_overdue_bg">#FEE2E2</color>
+    <color name="status_overdue_text">#991B1B</color>
+    <color name="status_paid_bg">#DCFCE7</color>
+    <color name="status_paid_text">#166534</color>
 </resources>

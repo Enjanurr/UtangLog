@@ -18,4 +18,9 @@ class DebtDetailPresenter(
     override fun onEditClick(people: People) {
         view.showEditScreen(people)
     }
+
+    override fun onUpdateClick(updatedPeople: People, position: Int) {
+        view.onUpdateSuccess(updatedPeople, position)
+        view.showMessage("Debt updated successfully!")
+    }
 }

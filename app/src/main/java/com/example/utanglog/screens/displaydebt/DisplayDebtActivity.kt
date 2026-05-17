@@ -4,22 +4,27 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.utanglog.R
 import com.example.utanglog.screens.addDebt.AddDebtActivity
+import com.example.utanglog.screens.debtdetail.DebtDetailActivity
+import com.example.utanglog.screens.profile.ProfileActivity
 import com.example.utanglog.data.People
 import com.example.utanglog.helper.DebtAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
 
     private lateinit var presenter: DisplayDebtPresenter
     private lateinit var adapter: DebtAdapter
     private lateinit var listView: ListView
-    private lateinit var tvTotalAmount: TextView
-    private lateinit var tvDebtCount: TextView
+    private lateinit var textviewTotalAmount: TextView
+    private lateinit var textviewDebtCount: TextView
+
+    private val ADD_DEBT_REQUEST = 1
+    private val DEBT_DETAIL_REQUEST = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,41 +33,47 @@ class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
         presenter = DisplayDebtPresenter(this, DisplayDebtModel())
 
         listView = findViewById(R.id.listView)
-        tvTotalAmount = findViewById(R.id.tv_total_amount)
-        tvDebtCount = findViewById(R.id.tv_debt_count)
-        val btnAddDebt = findViewById<Button>(R.id.btn_add_debt)
-        val backArrow = findViewById<ImageView>(R.id.back_arrow)
+        textviewTotalAmount = findViewById(R.id.textviewTotalAmount)
+        textviewDebtCount = findViewById(R.id.textviewDebtCount)
+
+        setupBottomNavigation()
 
         adapter = DebtAdapter(
             this,
             mutableListOf(),
-            onItemClick = { people -> presenter.onItemClick(people) }
+            onItemClick = { people, position ->
+                val intent = Intent(this, DebtDetailActivity::class.java).apply {
+                    putExtra("people", people)
+                    putExtra("position", position)
+                }
+                startActivityForResult(intent, DEBT_DETAIL_REQUEST)
+            }
         )
         listView.adapter = adapter
 
-        btnAddDebt.setOnClickListener {
-            navigateToAddDebt()
-        }
+        presenter.loadDebts()
+    }
 
-        backArrow.setOnClickListener {
-            finish()
-        }
-
-        // Check if coming from AddDebtActivity with new data
-        if (intent.hasExtra("name")) {
-            val name = intent.getStringExtra("name") ?: ""
-            val amount = intent.getDoubleExtra("amount", 0.0)
-            val status = intent.getStringExtra("status") ?: "Pending"
-            val dueDate = intent.getStringExtra("dueDate") ?: ""
-            val address = intent.getStringExtra("address") ?: ""
-
-            if (name.isNotEmpty() && amount > 0.0) {
-                // Add to existing list (not replace)
-                presenter.addDebtFromIntent(name, amount, status, dueDate, address)
+    private fun setupBottomNavigation() {
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNav.selectedItemId = R.id.nav_home
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    true
+                }
+                R.id.nav_add -> {
+                    startActivityForResult(Intent(this, AddDebtActivity::class.java), ADD_DEBT_REQUEST)
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    finish()
+                    true
+                }
+                else -> false
             }
         }
-
-        presenter.loadDebts()
     }
 
     override fun showDebtList(debts: List<People>) {
@@ -72,8 +83,8 @@ class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
 
     private fun updateSummary(debts: List<People>) {
         val total = debts.sumOf { it.amount }
-        tvTotalAmount.text = String.format("₱%.2f", total)
-        tvDebtCount.text = "${debts.size} ${if (debts.size == 1) "debt" else "debts"}"
+        textviewTotalAmount.text = String.format("₱%.2f", total)
+        textviewDebtCount.text = "${debts.size} ${if (debts.size == 1) "debt" else "debts"}"
     }
 
     override fun showDebtAdded() {
@@ -89,12 +100,30 @@ class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
     }
 
     override fun navigateToAddDebt() {
-        val intent = Intent(this, AddDebtActivity::class.java)
-        startActivity(intent)
+        // Handled by bottom nav
     }
 
     override fun updateSummary(total: Double, count: Int) {
-        tvTotalAmount.text = String.format("₱%.2f", total)
-        tvDebtCount.text = "$count ${if (count == 1) "debt" else "debts"}"
+        textviewTotalAmount.text = String.format("₱%.2f", total)
+        textviewDebtCount.text = "$count ${if (count == 1) "debt" else "debts"}"
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_DEBT_REQUEST && resultCode == Activity.RESULT_OK) {
+            val name = data?.getStringExtra("name") ?: ""
+            val amount = data?.getDoubleExtra("amount", 0.0) ?: 0.0
+            val status = data?.getStringExtra("status") ?: "Pending"
+            val dueDate = data?.getStringExtra("dueDate") ?: ""
+            val address = data?.getStringExtra("address") ?: ""
+            val photoRes = data?.getIntExtra("photoRes", R.drawable.profile) ?: R.drawable.profile
+
+            presenter.onActivityResult(name, amount, status, dueDate, address, photoRes)
+        }
     }
 }

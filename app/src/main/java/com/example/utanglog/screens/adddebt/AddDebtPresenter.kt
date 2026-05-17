@@ -11,10 +11,11 @@ class AddDebtPresenter(
         val status = view.getStatus()
         val dueDate = view.getDueDate()
         val address = view.getAddress()
+        val photoRes = view.getPhotoRes()
 
         if (model.validateInput(name, amount, status, dueDate, address)) {
             view.showSuccess(name, amount)
-            view.closeScreen(name, amount, status, dueDate, address)
+            view.closeScreen(name, amount, status, dueDate, address, photoRes)
         } else {
             view.showError("Please fill all fields correctly")
         }

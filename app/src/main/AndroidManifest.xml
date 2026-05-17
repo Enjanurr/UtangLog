@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <!-- For camera and gallery access -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,22 +16,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Utanglog"
         tools:targetApi="31">
+
+        <!-- Login Activity - LAUNCHER (First screen users see) -->
         <activity
-            android:name=".screens.debtdetail.DebtDetailActivity"
-            android:exported="false" />
-        <!-- DisplayDebtActivity should be the MAIN/LAUNCHER -->
-        <activity
-            android:name=".screens.displayDebt.DisplayDebtActivity"
+            android:name=".screens.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- AddDebtActivity should NOT be launcher -->
+        </activity>
+
+        <!-- Register Activity -->
+        <activity
+            android:name=".screens.register.RegisterActivity"
+            android:exported="false" />
+
+        <!-- DisplayDebt Activity (Home Screen after login) -->
+        <activity
+            android:name=".screens.displayDebt.DisplayDebtActivity"
+            android:exported="false" />
+
+        <!-- AddDebt Activity -->
         <activity
             android:name=".screens.addDebt.AddDebtActivity"
             android:exported="false" />
+
+        <!-- Profile Activity -->
+        <activity
+            android:name=".screens.profile.ProfileActivity"
+            android:exported="false" />
+
+        <!-- DebtDetail Activity -->
+        <activity
+            android:name=".screens.debtdetail.DebtDetailActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

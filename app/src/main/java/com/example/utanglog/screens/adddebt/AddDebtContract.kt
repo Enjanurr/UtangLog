@@ -7,9 +7,10 @@ interface AddDebtContract {
         fun getStatus(): String
         fun getDueDate(): String
         fun getAddress(): String
+        fun getPhotoRes(): Int
         fun showSuccess(name: String, amount: Double)
         fun showError(message: String)
-        fun closeScreen(name: String, amount: Double, status: String, dueDate: String, address: String)
+        fun closeScreen(name: String, amount: Double, status: String, dueDate: String, address: String, photoRes: Int)
     }
 
     interface Presenter {

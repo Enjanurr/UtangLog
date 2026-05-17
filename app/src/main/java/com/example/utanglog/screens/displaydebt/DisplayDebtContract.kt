@@ -10,12 +10,15 @@ interface DisplayDebtContract {
         fun refreshListView()
         fun navigateToAddDebt()
         fun updateSummary(total: Double, count: Int)
+        fun showMessage(message: String)
     }
 
     interface Presenter {
         fun loadDebts()
         fun addDebt(people: People)
-        fun addDebtFromIntent(name: String, amount: Double, status: String, dueDate: String, address: String)  // ADD THIS
+        fun updateDebt(updatedPeople: People, position: Int)
+        fun deleteDebt(position: Int)
         fun onItemClick(people: People)
+        fun onActivityResult(name: String, amount: Double, status: String, dueDate: String, address: String, photoRes: Int)
     }
 }
