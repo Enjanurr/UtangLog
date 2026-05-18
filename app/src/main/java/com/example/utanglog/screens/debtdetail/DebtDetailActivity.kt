@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
@@ -17,7 +16,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.utanglog.R
 import com.example.utanglog.screens.addDebt.AddDebtActivity
-import com.example.utanglog.screens.displayDebt.DisplayDebtActivity  // ADD THIS IMPORT
+import com.example.utanglog.screens.displaydebt.DisplayDebtActivity  // ADD THIS IMPORT
 import com.example.utanglog.screens.profile.ProfileActivity
 import com.example.utanglog.data.People
 import com.google.android.material.bottomnavigation.BottomNavigationView

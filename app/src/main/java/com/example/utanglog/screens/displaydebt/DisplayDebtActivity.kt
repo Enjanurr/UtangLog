@@ -1,18 +1,22 @@
-package com.example.utanglog.screens.displayDebt
+package com.example.utanglog.screens.displaydebt
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.utanglog.R
+import com.example.utanglog.app.MyApplication
 import com.example.utanglog.screens.addDebt.AddDebtActivity
 import com.example.utanglog.screens.debtdetail.DebtDetailActivity
 import com.example.utanglog.screens.profile.ProfileActivity
 import com.example.utanglog.data.People
 import com.example.utanglog.helper.DebtAdapter
+import com.example.utanglog.screens.displayDebt.DisplayDebtContract
+import com.example.utanglog.screens.displayDebt.DisplayDebtModel
+import com.example.utanglog.screens.displayDebt.DisplayDebtPresenter
+import com.example.utanglog.screens.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
@@ -27,6 +31,13 @@ class DisplayDebtActivity : Activity(), DisplayDebtContract.View {
     private val DEBT_DETAIL_REQUEST = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (!MyApplication.getInstance().isLoggedIn()) {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+            return
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_debt)
 

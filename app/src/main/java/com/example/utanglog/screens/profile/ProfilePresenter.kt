@@ -7,19 +7,19 @@ class ProfilePresenter(
 
     override fun loadUserProfile() {
         val user = model.getUser()
-        view.showUserProfile(user.name, user.email, user.phone, user.profileImagePath)
+        view.showUserProfile(user.fullName, user.email, user.phone, user.profileImagePath)  // Changed: name → fullName
     }
 
     override fun onEditClick() {
         val user = model.getUser()
-        view.showEditDialog(user.name, user.email, user.phone)
+        view.showEditDialog(user.fullName, user.email, user.phone)  // Changed: name → fullName
     }
 
     override fun onUpdateClick(name: String, email: String, phone: String) {
         if (model.updateUser(name, email, phone)) {
             view.showUpdateSuccess()
             val user = model.getUser()
-            view.showUserProfile(user.name, user.email, user.phone, user.profileImagePath)
+            view.showUserProfile(user.fullName, user.email, user.phone, user.profileImagePath)  // Changed: name → fullName
         } else {
             view.showError("Name and Email are required")
         }
@@ -39,7 +39,6 @@ class ProfilePresenter(
         return model.getLoggedInEmail()
     }
 
-    // ADD THESE METHODS
     override fun onLogoutClick() {
         view.showLogoutConfirmation()
     }

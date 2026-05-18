@@ -14,13 +14,19 @@ class LoginPresenter(
             return
         }
 
+        // Check if account exists first
+        if (!model.doesAccountExist(email)) {
+            view.showAccountNotFound()
+            return
+        }
+
         if (model.validateCredentials(email, password)) {
             model.saveLoginSession(email)
             view.showSuccess()
             view.navigateToHome()
             view.clearPasswordField()
         } else {
-            view.showError("Invalid email or password")
+            view.showInvalidCredentials()
         }
     }
 

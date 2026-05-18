@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.utanglog.R
 import com.example.utanglog.screens.addDebt.AddDebtActivity
-import com.example.utanglog.screens.displayDebt.DisplayDebtActivity
+import com.example.utanglog.screens.displaydebt.DisplayDebtActivity
 import com.example.utanglog.screens.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.File
@@ -150,8 +150,8 @@ class ProfileActivity : Activity(), ProfileContract.View {
         }
     }
 
-    override fun showUserProfile(name: String, email: String, phone: String, profileImagePath: String) {
-        textviewName.text = name
+    override fun showUserProfile(fullName: String, email: String, phone: String, profileImagePath: String) {
+        textviewName.text = fullName  // Changed
         textviewEmail.text = email
         textviewPhone.text = phone
 
@@ -162,14 +162,14 @@ class ProfileActivity : Activity(), ProfileContract.View {
         }
     }
 
-    override fun showEditDialog(name: String, email: String, phone: String) {
+    override fun showEditDialog(fullName: String, email: String, phone: String) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_edit_profile, null)
 
         val edittextName = dialogView.findViewById<EditText>(R.id.edittextName)
         val edittextEmail = dialogView.findViewById<EditText>(R.id.edittextEmail)
         val edittextPhone = dialogView.findViewById<EditText>(R.id.edittextPhone)
 
-        edittextName.setText(name)
+        edittextName.setText(fullName)  // Changed
         edittextEmail.setText(email)
         edittextPhone.setText(phone)
 
@@ -185,7 +185,6 @@ class ProfileActivity : Activity(), ProfileContract.View {
             .setNegativeButton("Cancel", null)
             .show()
     }
-
     override fun showUpdateSuccess() {
         Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
     }

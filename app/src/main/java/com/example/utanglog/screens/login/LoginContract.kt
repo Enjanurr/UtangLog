@@ -7,6 +7,8 @@ interface LoginContract {
         fun showSuccess()
         fun showError(message: String)
         fun showEmptyFieldsError()
+        fun showAccountNotFound()      // ADD THIS
+        fun showInvalidCredentials()   // ADD THIS
         fun navigateToHome()
         fun navigateToRegister()
         fun clearPasswordField()

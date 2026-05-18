@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.utanglog.R
-import com.example.utanglog.screens.displayDebt.DisplayDebtActivity
+import com.example.utanglog.screens.displaydebt.DisplayDebtActivity
 import com.example.utanglog.screens.register.RegisterActivity
 
 class LoginActivity : Activity(), LoginContract.View {
@@ -40,7 +40,7 @@ class LoginActivity : Activity(), LoginContract.View {
     override fun getPassword(): String = edittextPassword.text.toString()
 
     override fun showSuccess() {
-        Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Login Successful! Welcome back.", Toast.LENGTH_SHORT).show()
     }
 
     override fun showError(message: String) {
@@ -49,6 +49,14 @@ class LoginActivity : Activity(), LoginContract.View {
 
     override fun showEmptyFieldsError() {
         Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showAccountNotFound() {
+        Toast.makeText(this, "No account found with this email. Please register first.", Toast.LENGTH_LONG).show()
+    }
+
+    override fun showInvalidCredentials() {
+        Toast.makeText(this, "Invalid email or password. Please try again.", Toast.LENGTH_LONG).show()
     }
 
     override fun navigateToHome() {

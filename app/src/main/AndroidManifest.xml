@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <application
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -34,7 +35,7 @@
 
         <!-- DisplayDebt Activity (Home Screen after login) -->
         <activity
-            android:name=".screens.displayDebt.DisplayDebtActivity"
+            android:name=".screens.displaydebt.DisplayDebtActivity"
             android:exported="false" />
 
         <!-- AddDebt Activity -->

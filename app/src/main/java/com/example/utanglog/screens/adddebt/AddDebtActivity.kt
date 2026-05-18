@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import com.example.utanglog.R
-import com.example.utanglog.screens.displayDebt.DisplayDebtActivity
+import com.example.utanglog.screens.displaydebt.DisplayDebtActivity
 import com.example.utanglog.screens.profile.ProfileActivity
 import com.example.utanglog.utils.getEditTextValue
 import com.google.android.material.bottomnavigation.BottomNavigationView
