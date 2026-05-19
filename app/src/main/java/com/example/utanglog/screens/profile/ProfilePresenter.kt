@@ -7,19 +7,19 @@ class ProfilePresenter(
 
     override fun loadUserProfile() {
         val user = model.getUser()
-        view.showUserProfile(user.fullName, user.email, user.phone, user.profileImagePath)  // Changed: name → fullName
+        view.showUserProfile(user.fullName, user.email, user.phone, user.profileImagePath)
     }
 
     override fun onEditClick() {
         val user = model.getUser()
-        view.showEditDialog(user.fullName, user.email, user.phone)  // Changed: name → fullName
+        view.showEditDialog(user.fullName, user.email, user.phone)
     }
 
-    override fun onUpdateClick(name: String, email: String, phone: String) {
-        if (model.updateUser(name, email, phone)) {
+    override fun onUpdateClick(fullName: String, email: String, phone: String) {  // Changed parameter name
+        if (model.updateUser(fullName, email, phone)) {
             view.showUpdateSuccess()
             val user = model.getUser()
-            view.showUserProfile(user.fullName, user.email, user.phone, user.profileImagePath)  // Changed: name → fullName
+            view.showUserProfile(user.fullName, user.email, user.phone, user.profileImagePath)
         } else {
             view.showError("Name and Email are required")
         }

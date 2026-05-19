@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen"
-    android:padding="12dp">
+    android:padding="16dp">
 
-    <!-- Content area (takes space above bottom nav) -->
+    <!-- ============================================
+         CONTENT AREA (Takes space above bottom nav)
+         ============================================ -->
     <LinearLayout
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
@@ -16,108 +18,254 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
 
-        <!-- Header -->
+        <!-- ============================================
+             HEADER SECTION
+             ============================================ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="24dp">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Debt Tracker"
-                android:textSize="20sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/green_dark"
-                android:gravity="center" />
+                android:gravity="center"
+                android:letterSpacing="0.02" />
 
         </LinearLayout>
 
-        <!-- Total Card -->
+        <!-- ============================================
+             TOTAL DEBT SUMMARY CARD (ENHANCED)
+             ============================================ -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/green_primary">
+            android:layout_height="160dp"
+            android:layout_marginBottom="28dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/white">
 
+            <!-- Background Image -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/card"
+                android:scaleType="centerCrop"
+                android:contentDescription="Card Background" />
+
+            <!-- Premium Gradient Overlay -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/green_primary"
+                android:alpha="0.65" />
+
+            <!-- Main Content Container -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:padding="24dp"
+                android:gravity="center_vertical"
+                android:weightSum="2">
 
+                <!-- ============================================
+                     LEFT SECTION: Total Debt Amount
+                     ============================================ -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:gravity="start">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Debt"
-                        android:textSize="14sp"
+                        android:text="Total Outstanding"
+                        android:textSize="12sp"
                         android:textColor="@color/white"
-                        android:alpha="0.8" />
+                        android:alpha="0.85"
+                        android:letterSpacing="0.08"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textviewTotalAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₱0.00"
-                        android:textSize="24sp"
+                        android:textSize="32sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="8dp"
+                        android:letterSpacing="0.01" />
+
+                    <!-- Subtle accent line -->
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="3dp"
+                        android:background="@color/white"
+                        android:alpha="0.4"
+                        android:layout_marginTop="8dp" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textviewDebtCount"
-                    android:layout_width="wrap_content"
+                <!-- ============================================
+                     DIVIDER
+                     ============================================ -->
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:alpha="0.2"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp" />
+
+                <!-- ============================================
+                     RIGHT SECTION: Active Debts Count
+                     ============================================ -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="0 debts"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/green_primary"
-                    android:background="@drawable/bg_white_pill"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Active Debts"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:alpha="0.85"
+                        android:letterSpacing="0.08"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/textviewDebtCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="32sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:letterSpacing="0.01" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" debtors"
+                            android:textSize="13sp"
+                            android:textColor="@color/white"
+                            android:alpha="0.7"
+                            android:layout_marginStart="6dp"
+                            android:gravity="bottom" />
+
+                    </LinearLayout>
+
+                    <!-- Subtle accent line -->
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="3dp"
+                        android:background="@color/white"
+                        android:alpha="0.4"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="end" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <!-- List Title -->
+        <!-- ============================================
+             DEBTORS LIST TITLE
+             ============================================ -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Debtors List"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/green_dark"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="14dp"
+            android:letterSpacing="0.02" />
 
-        <!-- ListView -->
-        <ListView
-            android:id="@+id/listView"
+        <!-- ============================================
+             RECYCLER VIEW (List of Debts)
+             ============================================ -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:scrollbars="vertical" />
+
+        <!-- ============================================
+             EMPTY STATE LAYOUT
+             ============================================ -->
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:scrollbars="vertical" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="visible"
+            android:padding="32dp">
+
+            <!-- Empty State Icon -->
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@drawable/ic_empty_state"
+                android:contentDescription="No Debts"
+                android:layout_marginBottom="24dp"
+                android:alpha="0.9"
+                android:elevation="2dp" />
+
+            <!-- Empty State Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Debts Yet"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/green_dark"
+                android:gravity="center"
+                android:layout_marginBottom="12dp"
+                android:letterSpacing="0.01" />
+
+            <!-- Empty State Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You haven't added any debts yet.\nTap the + button to add your first debtor."
+                android:textSize="15sp"
+                android:textColor="@color/gray_medium"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:letterSpacing="0.02" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <!-- Bottom Navigation - Sticks to bottom -->
+    <!-- ============================================
+         BOTTOM NAVIGATION (Sticks to bottom)
+         ============================================ -->
     <include
         android:id="@+id/bottomNavigation"
         layout="@layout/nav_bottom"

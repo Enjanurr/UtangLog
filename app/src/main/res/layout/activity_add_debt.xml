@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_screen">
 
-    <!-- ScrollView for content (takes remaining space above bottom nav) -->
+    <!-- ============================================
+         SCROLLVIEW (Takes remaining space above bottom nav)
+         ============================================ -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -19,61 +21,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp"
+            android:padding="16dp"
             android:paddingBottom="16dp">
 
-            <!-- Header -->
+            <!-- ============================================
+                 HEADER SECTION
+                 ============================================ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-
+                android:layout_marginBottom="28dp">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="Add Debt"
-                    android:textSize="20sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
                     android:textColor="@color/green_dark"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:letterSpacing="0.02" />
 
             </LinearLayout>
 
-
-
+            <!-- ============================================
+                 AVATAR SECTION
+                 ============================================ -->
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="32dp">
 
                 <!-- Profile Image - ID matches Activity -->
                 <ImageView
                     android:id="@+id/imageviewDebtorAvatar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:src="@drawable/ic_person_placeholder"
                     android:background="@drawable/circle_background"
+                    android:scaleType="centerCrop"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:elevation="2dp" />
 
                 <!-- Camera Icon Overlay (Bottom Right) -->
                 <FrameLayout
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="bottom|end"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:background="@drawable/circle_camera_background">
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="@drawable/circle_camera_background"
+                    android:elevation="4dp"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_camera"
                         android:contentDescription="Change Photo" />
@@ -82,134 +90,163 @@
 
             </FrameLayout>
 
-            <!-- Name Field -->
+            <!-- ============================================
+                 NAME FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="6dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextName"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:hint="Enter name"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="text"
-                android:layout_marginBottom="12dp" />
+                android:textSize="15sp"
+                android:layout_marginBottom="16dp" />
 
-            <!-- Amount Field -->
+            <!-- ============================================
+                 AMOUNT FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Amount"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="6dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextAmount"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:hint="Enter amount"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="numberDecimal"
-                android:layout_marginBottom="12dp" />
+                android:textSize="15sp"
+                android:layout_marginBottom="16dp" />
 
-            <!-- Status Dropdown -->
+            <!-- ============================================
+                 STATUS DROPDOWN
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Status"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="6dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spinnerStatus"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:background="@drawable/edit_text_background"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:layout_marginBottom="12dp" />
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:layout_marginBottom="16dp" />
 
-            <!-- Due Date Field -->
+            <!-- ============================================
+                 DUE DATE FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Due Date"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="6dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextDueDate"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:hint="DD/MM/YYYY"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="date"
                 android:focusable="false"
                 android:clickable="true"
-                android:layout_marginBottom="12dp" />
+                android:textSize="15sp"
+                android:layout_marginBottom="16dp" />
 
-            <!-- Address Field -->
+            <!-- ============================================
+                 ADDRESS FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Address"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="6dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextAddress"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:hint="Enter address"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="text"
-                android:layout_marginBottom="16dp" />
+                android:textSize="15sp"
+                android:layout_marginBottom="24dp" />
 
-            <!-- Submit Button -->
+            <!-- ============================================
+                 SUBMIT BUTTON
+                 ============================================ -->
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="52dp"
                 android:layout_marginBottom="8dp"
                 android:text="Add Debt"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:background="@drawable/button_background"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:elevation="2dp"
+                android:translationZ="2dp"
+                android:stateListAnimator="@null"
                 app:backgroundTint="@null" />
 
         </LinearLayout>
 
     </ScrollView>
 
-    <!-- Bottom Navigation - Sticks to bottom -->
+    <!-- ============================================
+         BOTTOM NAVIGATION (Sticks to bottom)
+         ============================================ -->
     <include
         android:id="@+id/bottomNavigation"
         layout="@layout/nav_bottom"

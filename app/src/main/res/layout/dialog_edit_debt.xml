@@ -5,95 +5,135 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- ============================================
+         NAME FIELD
+         ============================================ -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/green_dark"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="6dp"
+        android:letterSpacing="0.05"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edittextName"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:hint="Enter name"
+        android:textColorHint="@color/gray_hint"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         android:background="@drawable/edit_text_background"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:layout_marginBottom="12dp" />
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:layout_marginBottom="18dp"
+        android:inputType="text" />
 
+    <!-- ============================================
+         AMOUNT FIELD
+         ============================================ -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Amount"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/green_dark"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="6dp"
+        android:letterSpacing="0.05"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edittextAmount"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:hint="Enter amount"
+        android:textColorHint="@color/gray_hint"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         android:inputType="numberDecimal"
         android:background="@drawable/edit_text_background"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:layout_marginBottom="12dp" />
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:layout_marginBottom="18dp" />
 
+    <!-- ============================================
+         STATUS DROPDOWN
+         ============================================ -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Status"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/green_dark"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="6dp"
+        android:letterSpacing="0.05"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/spinnerStatus"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:background="@drawable/edit_text_background"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:layout_marginBottom="12dp" />
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:layout_marginBottom="18dp" />
 
+    <!-- ============================================
+         DUE DATE FIELD
+         ============================================ -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Due Date"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/green_dark"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="6dp"
+        android:letterSpacing="0.05"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edittextDueDate"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:hint="DD/MM/YYYY"
+        android:textColorHint="@color/gray_hint"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         android:background="@drawable/edit_text_background"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         android:focusable="false"
         android:clickable="true"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="18dp"
+        android:inputType="date" />
 
+    <!-- ============================================
+         ADDRESS FIELD
+         ============================================ -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Address"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/green_dark"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="6dp"
+        android:letterSpacing="0.05"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edittextAddress"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:hint="Enter address"
+        android:textColorHint="@color/gray_hint"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         android:background="@drawable/edit_text_background"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp" />
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:inputType="text" />
 
 </LinearLayout>

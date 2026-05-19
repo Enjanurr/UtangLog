@@ -9,17 +9,19 @@ class LoginPresenter(
         val email = view.getEmail()
         val password = view.getPassword()
 
+        // Check empty fields
         if (email.isEmpty() || password.isEmpty()) {
             view.showEmptyFieldsError()
             return
         }
 
-        // Check if account exists first
+        // Check if account exists
         if (!model.doesAccountExist(email)) {
             view.showAccountNotFound()
             return
         }
 
+        // Validate credentials
         if (model.validateCredentials(email, password)) {
             model.saveLoginSession(email)
             view.showSuccess()

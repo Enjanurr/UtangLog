@@ -9,5 +9,6 @@ data class People(
     var dueDate: String = "",
     var status: String = "Pending",
     var address: String = "",
-    var photoRes: Int = R.drawable.profile  // Default profile image
+    var photoPath: String = "",  // Store image path, not drawable
+    var photoRes: Int = R.drawable.ic_person_placeholder  // Default profile image
 ) : Serializable

@@ -1,4 +1,4 @@
-package com.example.utanglog.screens.addDebt
+package com.example.utanglog.screens.adddebt
 
 interface AddDebtContract {
     interface View {
@@ -7,10 +7,10 @@ interface AddDebtContract {
         fun getStatus(): String
         fun getDueDate(): String
         fun getAddress(): String
-        fun getPhotoRes(): Int
+        fun getPhotoRes(): String  // Changed to String for path
         fun showSuccess(name: String, amount: Double)
         fun showError(message: String)
-        fun closeScreen(name: String, amount: Double, status: String, dueDate: String, address: String, photoRes: Int)
+        fun closeScreen(name: String, amount: Double, status: String, dueDate: String, address: String, photoPath: String)
     }
 
     interface Presenter {

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.utanglog"
-        minSdk = 34
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -49,5 +49,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
 }

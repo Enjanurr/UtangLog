@@ -3,7 +3,13 @@ package com.example.utanglog.screens.profile
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,12 +19,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.utanglog.R
-import com.example.utanglog.screens.addDebt.AddDebtActivity
+import com.example.utanglog.screens.adddebt.AddDebtActivity
 import com.example.utanglog.screens.displaydebt.DisplayDebtActivity
 import com.example.utanglog.screens.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.File
 import java.io.FileOutputStream
+import kotlin.math.min
 
 class ProfileActivity : Activity(), ProfileContract.View {
 
@@ -42,21 +49,22 @@ class ProfileActivity : Activity(), ProfileContract.View {
         imageviewAvatar = findViewById(R.id.imageviewAvatar)
 
         setupBottomNavigation()
-        setupViews()
+        setupClickListeners()
         presenter.loadUserProfile()
     }
 
-    private fun setupViews() {
+    private fun setupClickListeners() {
         findViewById<Button>(R.id.buttonEditProfile).setOnClickListener {
             presenter.onEditClick()
         }
 
+        // ADD THIS - Logout button
         findViewById<Button>(R.id.buttonLogout).setOnClickListener {
             presenter.onLogoutClick()
         }
 
         imageviewAvatar.setOnClickListener {
-            presenter.onChangeImageClick()
+            openGallery()
         }
     }
 
@@ -83,18 +91,6 @@ class ProfileActivity : Activity(), ProfileContract.View {
         }
     }
 
-    override fun showImagePickerDialog() {
-        val options = arrayOf("Choose from Gallery", "Cancel")
-        AlertDialog.Builder(this)
-            .setTitle("Select Profile Picture")
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> openGallery()
-                }
-            }
-            .show()
-    }
-
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
@@ -118,12 +114,9 @@ class ProfileActivity : Activity(), ProfileContract.View {
         return try {
             val inputStream = contentResolver.openInputStream(imageUri)
             val file = File(filesDir, "profile_images")
-            if (!file.exists()) {
-                file.mkdirs()
-            }
+            if (!file.exists()) file.mkdirs()
 
-            val fileName = "profile_${System.currentTimeMillis()}.jpg"
-            val imageFile = File(file, fileName)
+            val imageFile = File(file, "profile_${System.currentTimeMillis()}.jpg")
             val outputStream = FileOutputStream(imageFile)
 
             inputStream?.copyTo(outputStream)
@@ -132,16 +125,15 @@ class ProfileActivity : Activity(), ProfileContract.View {
 
             imageFile.absolutePath
         } catch (e: Exception) {
-            e.printStackTrace()
             null
         }
     }
 
-    private fun loadImageIntoView(imagePath: String) {
+    private fun loadCircularImage(imagePath: String) {
         try {
             val bitmap = BitmapFactory.decodeFile(imagePath)
             if (bitmap != null) {
-                imageviewAvatar.setImageBitmap(bitmap)
+                imageviewAvatar.setImageBitmap(makeCircular(bitmap))
             } else {
                 imageviewAvatar.setImageResource(R.drawable.ic_person_placeholder)
             }
@@ -150,13 +142,34 @@ class ProfileActivity : Activity(), ProfileContract.View {
         }
     }
 
+    private fun makeCircular(bitmap: Bitmap): Bitmap {
+        val size = min(bitmap.width, bitmap.height)
+        val output = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(output)
+        val paint = Paint().apply { isAntiAlias = true }
+
+        val rect = Rect(0, 0, size, size)
+        val srcRect = Rect(
+            (bitmap.width - size) / 2,
+            (bitmap.height - size) / 2,
+            (bitmap.width + size) / 2,
+            (bitmap.height + size) / 2
+        )
+
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint)
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(bitmap, srcRect, rect, paint)
+
+        return output
+    }
+
     override fun showUserProfile(fullName: String, email: String, phone: String, profileImagePath: String) {
-        textviewName.text = fullName  // Changed
+        textviewName.text = fullName
         textviewEmail.text = email
         textviewPhone.text = phone
 
         if (profileImagePath.isNotEmpty()) {
-            loadImageIntoView(profileImagePath)
+            loadCircularImage(profileImagePath)
         } else {
             imageviewAvatar.setImageResource(R.drawable.ic_person_placeholder)
         }
@@ -169,7 +182,7 @@ class ProfileActivity : Activity(), ProfileContract.View {
         val edittextEmail = dialogView.findViewById<EditText>(R.id.edittextEmail)
         val edittextPhone = dialogView.findViewById<EditText>(R.id.edittextPhone)
 
-        edittextName.setText(fullName)  // Changed
+        edittextName.setText(fullName)
         edittextEmail.setText(email)
         edittextPhone.setText(phone)
 
@@ -177,16 +190,22 @@ class ProfileActivity : Activity(), ProfileContract.View {
             .setTitle("Edit Profile")
             .setView(dialogView)
             .setPositiveButton("Save") { _, _ ->
-                val updatedName = edittextName.text.toString()
-                val updatedEmail = edittextEmail.text.toString()
-                val updatedPhone = edittextPhone.text.toString()
-                presenter.onUpdateClick(updatedName, updatedEmail, updatedPhone)
+                presenter.onUpdateClick(
+                    edittextName.text.toString(),
+                    edittextEmail.text.toString(),
+                    edittextPhone.text.toString()
+                )
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
+
+    override fun showImagePickerDialog() {
+        openGallery()
+    }
+
     override fun showUpdateSuccess() {
-        Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show()
     }
 
     override fun showError(message: String) {
@@ -198,17 +217,14 @@ class ProfileActivity : Activity(), ProfileContract.View {
     }
 
     override fun updateProfileImage(imagePath: String) {
-        loadImageIntoView(imagePath)
+        loadCircularImage(imagePath)
     }
 
-    // ADD LOGOUT METHODS
     override fun showLogoutConfirmation() {
         AlertDialog.Builder(this)
             .setTitle("Logout")
             .setMessage("Are you sure you want to logout?")
-            .setPositiveButton("Yes") { _, _ ->
-                presenter.logout()
-            }
+            .setPositiveButton("Yes") { _, _ -> presenter.logout() }
             .setNegativeButton("No", null)
             .show()
     }

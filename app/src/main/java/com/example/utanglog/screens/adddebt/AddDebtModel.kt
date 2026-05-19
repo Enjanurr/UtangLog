@@ -1,4 +1,4 @@
-package com.example.utanglog.screens.addDebt
+package com.example.utanglog.screens.adddebt
 
 class AddDebtModel {
     fun validateInput(

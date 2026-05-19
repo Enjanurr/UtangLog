@@ -1,4 +1,4 @@
-package com.example.utanglog.screens.displayDebt
+package com.example.utanglog.screens.displaydebt
 
 import com.example.utanglog.data.People
 
@@ -19,6 +19,6 @@ interface DisplayDebtContract {
         fun updateDebt(updatedPeople: People, position: Int)
         fun deleteDebt(position: Int)
         fun onItemClick(people: People)
-        fun onActivityResult(name: String, amount: Double, status: String, dueDate: String, address: String, photoRes: Int)
+        fun onActivityResult(name: String, amount: Double, status: String, dueDate: String, address: String, photoPath: String)
     }
 }

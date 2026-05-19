@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_screen">
 
+    <!-- ============================================
+         SCROLLVIEW
+         ============================================ -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,7 +21,9 @@
             android:padding="24dp"
             android:gravity="center_horizontal">
 
-            <!-- Logo -->
+            <!-- ============================================
+                 LOGO SECTION
+                 ============================================ -->
             <!-- Logo -->
             <ImageView
                 android:id="@+id/imageviewLogo"
@@ -30,124 +35,157 @@
                 android:contentDescription="Logo"
                 android:src="@drawable/logo" />
 
-            <!-- Title -->
+
+
+            <!-- ============================================
+                 TITLE SECTION
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create Account"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/green_dark"
                 android:gravity="center"
-                android:layout_marginBottom="32dp" />
+                android:layout_marginBottom="36dp"
+                android:letterSpacing="0.02" />
 
-            <!-- Full Name Field -->
+            <!-- ============================================
+                 FULL NAME FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Full Name"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextFullName"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:hint="Enter your full name"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
+                android:textSize="15sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="textPersonName"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="20dp" />
 
-            <!-- Email Field -->
+            <!-- ============================================
+                 EMAIL FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextEmail"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:hint="Enter your email"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
+                android:textSize="15sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="textEmailAddress"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="20dp" />
 
-            <!-- Password Field -->
+            <!-- ============================================
+                 PASSWORD FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Password"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextPassword"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:hint="Enter your password"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
+                android:textSize="15sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="textPassword"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="20dp" />
 
-            <!-- Confirm Password Field -->
+            <!-- ============================================
+                 CONFIRM PASSWORD FIELD
+                 ============================================ -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Confirm Password"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittextConfirmPassword"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:hint="Confirm your password"
                 android:textColorHint="@color/gray_hint"
                 android:textColor="@color/black"
+                android:textSize="15sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:background="@drawable/edit_text_background"
                 android:inputType="textPassword"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="28dp" />
 
-            <!-- Register Button -->
+            <!-- ============================================
+                 REGISTER BUTTON
+                 ============================================ -->
             <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:text="Register"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:background="@drawable/button_background"
-                android:layout_marginBottom="16dp"
+                android:elevation="2dp"
+                android:translationZ="2dp"
+                android:stateListAnimator="@null"
+                android:layout_marginBottom="24dp"
                 app:backgroundTint="@null" />
 
-            <!-- Login Link -->
+            <!-- ============================================
+                 LOGIN LINK SECTION
+                 ============================================ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,7 +203,8 @@
                     android:textStyle="bold"
                     android:textColor="@color/green_primary"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:paddingStart="4dp" />
 
             </LinearLayout>
 

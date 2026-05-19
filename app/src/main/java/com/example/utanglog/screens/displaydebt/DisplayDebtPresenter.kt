@@ -1,4 +1,4 @@
-package com.example.utanglog.screens.displayDebt
+package com.example.utanglog.screens.displaydebt
 
 import com.example.utanglog.data.People
 
@@ -15,14 +15,16 @@ class DisplayDebtPresenter(
 
     override fun addDebt(people: People) {
         model.addDebt(people)
-        view.showDebtList(model.getDebts())
+        val updatedDebts = model.getDebts()  // Get fresh list
+        view.showDebtList(updatedDebts)       // Update view with new list
         view.updateSummary(model.getTotalAmount(), model.getDebtCount())
         view.showDebtAdded()
     }
 
     override fun updateDebt(updatedPeople: People, position: Int) {
         model.updateDebt(updatedPeople, position)
-        view.showDebtList(model.getDebts())
+        val updatedDebts = model.getDebts()
+        view.showDebtList(updatedDebts)
         view.updateSummary(model.getTotalAmount(), model.getDebtCount())
         view.showMessage("Debt updated successfully!")
     }
@@ -30,7 +32,8 @@ class DisplayDebtPresenter(
     override fun deleteDebt(position: Int) {
         val deletedPeople = model.deleteDebt(position)
         if (deletedPeople != null) {
-            view.showDebtList(model.getDebts())
+            val updatedDebts = model.getDebts()
+            view.showDebtList(updatedDebts)
             view.updateSummary(model.getTotalAmount(), model.getDebtCount())
             view.showMessage("Deleted ${deletedPeople.name}'s debt")
         }
@@ -40,7 +43,7 @@ class DisplayDebtPresenter(
         view.showItemClicked(people)
     }
 
-    override fun onActivityResult(name: String, amount: Double, status: String, dueDate: String, address: String, photoRes: Int) {
+    override fun onActivityResult(name: String, amount: Double, status: String, dueDate: String, address: String, photoPath: String) {
         if (name.isNotEmpty() && amount > 0.0) {
             val newDebt = People(
                 name = name,
@@ -48,7 +51,7 @@ class DisplayDebtPresenter(
                 dueDate = dueDate,
                 status = status,
                 address = address,
-                photoRes = photoRes
+                photoPath = photoPath  // Store path
             )
             addDebt(newDebt)
         }

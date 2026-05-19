@@ -4,6 +4,14 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
@@ -15,12 +23,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.utanglog.R
-import com.example.utanglog.screens.addDebt.AddDebtActivity
-import com.example.utanglog.screens.displaydebt.DisplayDebtActivity  // ADD THIS IMPORT
+import com.example.utanglog.screens.adddebt.AddDebtActivity
+import com.example.utanglog.screens.displaydebt.DisplayDebtActivity
 import com.example.utanglog.screens.profile.ProfileActivity
 import com.example.utanglog.data.People
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.File
+import java.io.FileOutputStream
 import java.util.Calendar
+import kotlin.math.min
 
 class DebtDetailActivity : Activity(), DebtDetailContract.View {
 
@@ -29,7 +40,7 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
     private var currentPosition: Int = -1
     private lateinit var datePickerDialog: DatePickerDialog
     private lateinit var imageviewAvatar: ImageView
-    private var selectedPhotoRes: Int = R.drawable.profile
+    private var selectedImagePath: String = ""
     private val PICK_IMAGE_REQUEST = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +51,7 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
 
         currentPeople = intent.getSerializableExtra("people") as People
         currentPosition = intent.getIntExtra("position", -1)
-        selectedPhotoRes = currentPeople.photoRes
+        selectedImagePath = currentPeople.photoPath
 
         setupViews()
         setupBottomNavigation()
@@ -49,8 +60,6 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
 
     private fun setupViews() {
         imageviewAvatar = findViewById(R.id.imageviewAvatar)
-
-
 
         findViewById<Button>(R.id.buttonEdit).setOnClickListener {
             showEditDialog(currentPeople, currentPosition)
@@ -86,10 +95,80 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            selectedPhotoRes = R.drawable.profile
-            imageviewAvatar.setImageResource(selectedPhotoRes)
-            Toast.makeText(this, "Photo selected (will update on save)", Toast.LENGTH_SHORT).show()
+            val imageUri = data?.data
+            if (imageUri != null) {
+                selectedImagePath = saveImageToStorage(imageUri)
+                loadCircularImageIntoView(selectedImagePath)
+
+                // AUTO-SAVE: Update the debt immediately without waiting for edit dialog save
+                val updatedPeople = People(
+                    name = currentPeople.name,
+                    amount = currentPeople.amount,
+                    dueDate = currentPeople.dueDate,
+                    status = currentPeople.status,
+                    address = currentPeople.address,
+                    photoPath = selectedImagePath
+                )
+                presenter.onUpdateClick(updatedPeople, currentPosition)
+
+                Toast.makeText(this, "Photo updated successfully!", Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    private fun saveImageToStorage(imageUri: Uri): String {
+        val inputStream = contentResolver.openInputStream(imageUri)
+        val file = File(filesDir, "debtor_images")
+        if (!file.exists()) {
+            file.mkdirs()
+        }
+
+        val fileName = "debtor_${System.currentTimeMillis()}.jpg"
+        val imageFile = File(file, fileName)
+        val outputStream = FileOutputStream(imageFile)
+
+        inputStream?.copyTo(outputStream)
+        inputStream?.close()
+        outputStream.close()
+
+        return imageFile.absolutePath
+    }
+
+    private fun loadCircularImageIntoView(imagePath: String) {
+        try {
+            val originalBitmap = BitmapFactory.decodeFile(imagePath)
+            if (originalBitmap != null) {
+                val circularBitmap = getCircularBitmap(originalBitmap)
+                imageviewAvatar.setImageBitmap(circularBitmap)
+            } else {
+                imageviewAvatar.setImageResource(R.drawable.ic_person_placeholder)
+            }
+        } catch (e: Exception) {
+            imageviewAvatar.setImageResource(R.drawable.ic_person_placeholder)
+        }
+    }
+
+    private fun getCircularBitmap(bitmap: Bitmap): Bitmap {
+        val size = min(bitmap.width, bitmap.height)
+        val output = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(output)
+
+        val paint = Paint()
+        paint.isAntiAlias = true
+
+        val rect = Rect(0, 0, size, size)
+        val srcRect = Rect(
+            (bitmap.width - size) / 2,
+            (bitmap.height - size) / 2,
+            (bitmap.width + size) / 2,
+            (bitmap.height + size) / 2
+        )
+
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint)
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(bitmap, srcRect, rect, paint)
+
+        return output
     }
 
     private fun setupBottomNavigation() {
@@ -98,7 +177,7 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    startActivity(Intent(this, DisplayDebtActivity::class.java))  // FIXED
+                    startActivity(Intent(this, DisplayDebtActivity::class.java))
                     finish()
                     true
                 }
@@ -157,7 +236,7 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
                     dueDate = edittextDueDate.text.toString(),
                     status = spinnerStatus.selectedItem.toString(),
                     address = edittextAddress.text.toString(),
-                    photoRes = selectedPhotoRes
+                    photoPath = selectedImagePath
                 )
                 presenter.onUpdateClick(updatedPeople, position)
             }
@@ -185,7 +264,12 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
         findViewById<TextView>(R.id.textviewAmount).text = String.format("₱%.2f", people.amount)
         findViewById<TextView>(R.id.textviewDueDate).text = people.dueDate
         findViewById<TextView>(R.id.textviewAddress).text = people.address
-        imageviewAvatar.setImageResource(people.photoRes)
+
+        if (people.photoPath.isNotEmpty()) {
+            loadCircularImageIntoView(people.photoPath)
+        } else {
+            imageviewAvatar.setImageResource(R.drawable.ic_person_placeholder)
+        }
 
         val textviewStatus = findViewById<TextView>(R.id.textviewStatus)
         textviewStatus.text = people.status
@@ -231,7 +315,7 @@ class DebtDetailActivity : Activity(), DebtDetailContract.View {
             putExtra("updated_status", updatedPeople.status)
             putExtra("updated_dueDate", updatedPeople.dueDate)
             putExtra("updated_address", updatedPeople.address)
-            putExtra("updated_photoRes", updatedPeople.photoRes)
+            putExtra("updated_photoPath", updatedPeople.photoPath)
         }
         setResult(Activity.RESULT_OK, resultIntent)
         finish()

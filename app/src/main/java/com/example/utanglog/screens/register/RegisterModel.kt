@@ -2,32 +2,11 @@ package com.example.utanglog.screens.register
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.utanglog.data.UserInfo
+import android.util.Log
 
 class RegisterModel(private val context: Context) {
 
     private val sharedPref: SharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-
-    init {
-        // Only create default user if NO users exist at all
-        createDefaultUserIfNoUsers()
-    }
-
-    private fun createDefaultUserIfNoUsers() {
-        val hasAnyUser = sharedPref.getBoolean("hasAnyUser", false)
-
-        if (!hasAnyUser) {
-            sharedPref.edit().apply {
-                putString("fullName", "Test User")
-                putString("email", "test@example.com")
-                putString("password", "test123")
-                putString("phone", "+63 912 345 6789")
-                putBoolean("defaultUserCreated", true)
-                putBoolean("hasAnyUser", true)  // Mark that we have a user
-                apply()
-            }
-        }
-    }
 
     fun validateInput(
         fullName: String,
@@ -51,10 +30,14 @@ class RegisterModel(private val context: Context) {
                 putString("password", password)
                 putString("phone", "")
                 putBoolean("isLoggedIn", false)
-                putBoolean("hasAnyUser", true)  // Mark that we have a user
                 apply()
-            }.commit()
+            }.commit().also { success ->
+                Log.d("RegisterModel", "Save user result: $success")
+                Log.d("RegisterModel", "Saved email: $email")
+                Log.d("RegisterModel", "Saved password: $password")
+            }
         } catch (e: Exception) {
+            Log.e("RegisterModel", "Error saving user", e)
             false
         }
     }

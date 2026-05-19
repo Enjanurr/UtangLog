@@ -11,42 +11,41 @@ class LoginModel(private val context: Context) {
     private val sharedPref: SharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
     fun doesAccountExist(email: String): Boolean {
-        val savedEmail = sharedPref.getString("email", "")
-        Log.d("LoginModel", "Checking email: $email against saved: $savedEmail")
-        return email.equals(savedEmail, ignoreCase = true)
+        val registeredEmail = sharedPref.getString("email", "")
+
+        Log.d("LoginModel", "Checking email: '$email'")
+        Log.d("LoginModel", "Against registered: '$registeredEmail'")
+
+        val exists = email.equals(registeredEmail, ignoreCase = true)
+        Log.d("LoginModel", "Account exists: $exists")
+
+        return exists
     }
 
     fun validateCredentials(email: String, password: String): Boolean {
+        Log.d("LoginModel", "Validating credentials for: $email")
+
         if (email.isEmpty() || password.isEmpty()) {
             return false
         }
 
-        // Check for default test user
-        if (email.equals("test@example.com", ignoreCase = true) && password == "test123") {
-            Log.d("LoginModel", "Default user login success")
+        // Get registered user credentials with default values (null safety)
+        val registeredEmail = sharedPref.getString("email", "") ?: ""
+        val registeredPassword = sharedPref.getString("password", "") ?: ""
+        val registeredFullName = sharedPref.getString("fullName", "") ?: ""
+        val registeredPhone = sharedPref.getString("phone", "") ?: ""
+
+        Log.d("LoginModel", "Registered email: $registeredEmail")
+        Log.d("LoginModel", "Input email: $email")
+        Log.d("LoginModel", "Input password: $password")
+
+        // Check against registered user
+        if (email.equals(registeredEmail, ignoreCase = true) && password == registeredPassword) {
+            Log.d("LoginModel", "Login success")
             val userInfo = UserInfo(
-                fullName = "Test User",
+                fullName = registeredFullName,
                 email = email,
-                phone = "+63 912 345 6789"
-            )
-            MyApplication.getInstance().setUserInfo(userInfo)
-            return true
-        }
-
-        val savedEmail = sharedPref.getString("email", "")
-        val savedPassword = sharedPref.getString("password", "")
-        val savedFullName = sharedPref.getString("fullName", "")
-        val savedPhone = sharedPref.getString("phone", "")
-
-        Log.d("LoginModel", "Comparing: email=$email vs savedEmail=$savedEmail")
-        Log.d("LoginModel", "Comparing: password=$password vs savedPassword=$savedPassword")
-
-        if (email.equals(savedEmail, ignoreCase = true) && password == savedPassword) {
-            Log.d("LoginModel", "User login success")
-            val userInfo = UserInfo(
-                fullName = savedFullName ?: "",
-                email = email,
-                phone = savedPhone ?: ""
+                phone = registeredPhone
             )
             MyApplication.getInstance().setUserInfo(userInfo)
             return true

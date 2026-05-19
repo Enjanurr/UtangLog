@@ -52,7 +52,7 @@ class LoginActivity : Activity(), LoginContract.View {
     }
 
     override fun showAccountNotFound() {
-        Toast.makeText(this, "No account found with this email. Please register first.", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "User not found. Please register first.", Toast.LENGTH_LONG).show()
     }
 
     override fun showInvalidCredentials() {
